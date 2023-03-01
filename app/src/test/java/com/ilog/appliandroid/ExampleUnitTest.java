@@ -1,4 +1,4 @@
-package com.ilog.appliMobile;
+package com.ilog.appliandroid;
 
 import org.junit.Test;
 

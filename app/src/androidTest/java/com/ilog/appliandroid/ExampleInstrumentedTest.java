@@ -1,4 +1,4 @@
-package com.ilog.appliMobile;
+package com.ilog.appliandroid;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.ilog.appliMobile", appContext.getPackageName());
+        assertEquals("com.ilog.appliandroid", appContext.getPackageName());
     }
 }
