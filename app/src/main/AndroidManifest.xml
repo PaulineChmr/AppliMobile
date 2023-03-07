@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ilog.appliandroid">
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppliAndroid"
         tools:targetApi="31">
+        <activity
+            android:name=".NewRecipient"
+            android:exported="false" />
+        <activity
+            android:name=".CreateUser"
+            android:exported="false" />
+        <activity
+            android:name=".RecipientsList"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
