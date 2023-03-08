@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private TextView mGreetingTextView;
     private EditText mNameEditText;
@@ -52,11 +54,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                //en gros ca marche si on ouvre d'abord la view de la liste des numéros qui permet de se synchroniser avec la database.
+                //normalement ca va se régler ensuite
+                ArrayList<Recipient> recipients = Recipient.recipientArrayList;
                 //ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
-                String message = "Yo la teammmmm";
-                String number = "0782856564";
-                SmsManager mySmsManager = SmsManager.getDefault();
-                mySmsManager.sendTextMessage(number, null, message, null, null);
+                for (int i = 0; i < recipients.size(); i ++){
+                    //ça prend en compte que ceux que je viens de créer là là
+                    String message = "Ceci est un test";
+                    String number = recipients.get(i).getNumero();
+                    SmsManager mySmsManager = SmsManager.getDefault();
+                    mySmsManager.sendTextMessage(number, null, message, null, null);
+                }
             }
         });
     }
