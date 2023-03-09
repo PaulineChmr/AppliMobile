@@ -14,6 +14,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private double accelerationPreviousValue;
     private double maxAcceleration = 0;
     private boolean isFallen = false;
+    private Button resetButton;
 
     // Attributs concernant la position GPS
     FusedLocationProviderClient mFusedLocationProviderClient;
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             // Détection de la chute
             if(accelerationCurrentValue > 27 && isFallen == false) {
                 isFallen = true;
+                resetButton.setVisibility(View.VISIBLE);
                 getLastLocation();
             }
         }
@@ -108,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initWidgets(){
         recipientListView = findViewById(R.id.recipientListView);
+        resetButton = findViewById(R.id.reset);
+        resetButton.setVisibility(View.INVISIBLE);
     }
 
     private void loadFromDBToMemory() {
@@ -220,5 +226,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void resetFall(View view) {
         isFallen = false;
+        resetButton.setVisibility(View.INVISIBLE);
     }
 }

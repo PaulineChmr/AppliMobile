@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="6dp"
         android:text="Prénom"
         android:textColor="@color/black"
@@ -24,15 +25,14 @@
 
     <EditText
         android:id="@+id/prenom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvprenom"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="127dp"
         android:layout_marginEnd="6dp"
         android:text="Nom"
         android:textColor="@color/black"
@@ -52,15 +52,14 @@
 
     <EditText
         android:id="@+id/nom"
-        android:layout_width="297dp"
-        android:layout_height="58dp"
+        android:layout_width="260dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="116dp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvnom"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -68,7 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="212dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="227dp"
         android:layout_marginEnd="6dp"
         android:text="Numéro"
         android:textColor="@color/black"
@@ -80,15 +80,14 @@
 
     <EditText
         android:id="@+id/numero"
-        android:layout_width="297dp"
-        android:layout_height="58dp"
+        android:layout_width="260dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvnumero"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -97,11 +96,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
         android:layout_marginEnd="29dp"
+        android:backgroundTint="#235A8C"
+        android:onClick="saveRecipient"
         android:text="Sauvegarder"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numero"
-        android:onClick="saveRecipient"/>
+        app:layout_constraintTop_toBottomOf="@+id/numero" />
 
     <Button
         android:id="@+id/delete"
@@ -109,8 +108,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="204dp"
+        android:backgroundTint="#235A8C"
         android:onClick="deleteRecipient"
-        android:backgroundTint="@color/purple_200"
         android:text="Supprimer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numero" />
