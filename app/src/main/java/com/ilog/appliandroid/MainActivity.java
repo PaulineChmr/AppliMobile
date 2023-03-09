@@ -38,9 +38,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity {
     private ListView recipientListView;
-    private TextView mCurrentAcc, mIsFallen;
-    private EditText mNameEditText;
-    private Button mPlayButton;
     public String mLocation;
 
     //partieGaël
@@ -75,24 +72,8 @@ public class MainActivity extends AppCompatActivity {
             // Détection de la chute
             if(accelerationCurrentValue > 27 && isFallen == false) {
                 isFallen = true;
-                //en gros ca marche si on ouvre d'abord la view de la liste des numéros qui permet de se synchroniser avec la database.
-                //normalement ca va se régler ensuite
-                ArrayList<Recipient> recipients = Recipient.recipientArrayList;
                 getLastLocation();
-                String s = mLocation;
-                //ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
-                for (int i = 0; i < recipients.size(); i ++){
-                    //ça prend en compte que ceux que je viens de créer là là
-                    String message = "Ceci est un test, localisation : " + s;
-                    String number = recipients.get(i).getNumero();
-                    SmsManager mySmsManager = SmsManager.getDefault();
-                    mySmsManager.sendTextMessage(number, null, message, null, null);
-                }
-
             }
-
-            mCurrentAcc.setText("Current = " + accelerationCurrentValue);
-            mIsFallen.setText("Chute? " + isFallen);
         }
 
         @Override
@@ -109,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
         loadFromDBToMemory();
         setRecipientAdapter();
         setOnClickListener();
-        mCurrentAcc = findViewById(R.id.current_accel_textview);
-        mIsFallen = findViewById(R.id.isfallen_textview);
 
 
         //Vérifie qu'on a bien toutes les permissions requises
@@ -163,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         setRecipientAdapter();
+        mSensorManager.registerListener(sensorEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
 
@@ -192,6 +172,20 @@ public class MainActivity extends AppCompatActivity {
                                     mAdresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                     mLocation = "Latitude: " + mAdresses.get(0).getLatitude() + " " + mAdresses.get(0).getLongitude()
                                             + "\n  Adress: " + mAdresses.get(0).getAddressLine(0) + " " + mAdresses.get(0).getLocality();
+                                    //en gros ca marche si on ouvre d'abord la view de la liste des numéros qui permet de se synchroniser avec la database.
+                                    //normalement ca va se régler ensuite
+                                    ArrayList<Recipient> recipients = Recipient.recipientArrayList;
+                                    String s = mLocation;
+                                    //ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
+                                    for (int i = 0; i < recipients.size(); i ++){
+                                        if(recipients.get(i).getDeleted() == null) {
+                                            //ça prend en compte que ceux que je viens de créer là là
+                                            String message = "Ceci est un test, localisation : " + s;
+                                            String number = recipients.get(i).getNumero();
+                                            SmsManager mySmsManager = SmsManager.getDefault();
+                                            mySmsManager.sendTextMessage(number, null, message, null, null);
+                                        }
+                                    }
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -222,5 +216,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void resetFall(View view) {
+        isFallen = false;
     }
 }
