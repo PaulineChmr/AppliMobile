@@ -1,4 +1,4 @@
-package com.ilog.appliandroid;
+/*package com.ilog.appliandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -58,6 +58,7 @@ public class RecipientsList extends AppCompatActivity{
         startActivity(newRecipientIntent);
     }
 }
+*/
 
 /*public class RecipientsList extends AppCompatActivity {
 

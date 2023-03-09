@@ -59,7 +59,8 @@ public class NewRecipient extends AppCompatActivity{
             selectedRecipient.setNumero(num);
             sqLiteManager.updateRecipientInDB(selectedRecipient);
         }
-
+        Intent recipientsListIntent = new Intent(this, MainActivity.class);
+        //startActivity(recipientsListIntent);
         finish();
     }
 }
