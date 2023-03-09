@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class SQLiteManager extends SQLiteOpenHelper {
@@ -90,6 +91,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     public void populateRecipientListArray(){
+        Recipient.recipientArrayList = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null))
@@ -118,7 +120,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(NUMERO_FIELD, recipient.getNumero());
         contentValues.put(DELETED_FIELD, getStringFromDate(recipient.getDeleted()));
 
-        sqLiteDatabase.update(TABLE_NAME, contentValues, ID_FIELD + " =? ", new String[]{String.valueOf(recipient.getNumero())});
+        sqLiteDatabase.update(TABLE_NAME, contentValues, ID_FIELD + " =? ", new String[]{String.valueOf(recipient.getId())});
 
     }
 

@@ -124,28 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Instanciation du GPS
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        //partie sur le bouton d'envoie
-        /*final Button sendButton = (Button) findViewById(R.id.main_button_send);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //en gros ca marche si on ouvre d'abord la view de la liste des numéros qui permet de se synchroniser avec la database.
-                //normalement ca va se régler ensuite
-                ArrayList<Recipient> recipients = Recipient.recipientArrayList;
-                getLastLocation();
-                String s = mLocation;
-                //ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
-                for (int i = 0; i < recipients.size(); i ++){
-                    //ça prend en compte que ceux que je viens de créer là là
-                    String message = "Ceci est un test, localisation : " + s;
-                    String number = recipients.get(i).getNumero();
-                    SmsManager mySmsManager = SmsManager.getDefault();
-                    mySmsManager.sendTextMessage(number, null, message, null, null);
-                }
-            }
-        });*/
     }
     //partie sur la liste des contacts
 
@@ -160,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setRecipientAdapter(){
-        RecipientAdapter recipientAdapter = new RecipientAdapter(getApplicationContext(), Recipient.recipientArrayList);
+        RecipientAdapter recipientAdapter = new RecipientAdapter(getApplicationContext(), Recipient.nonDeleteRecipients());
         recipientListView.setAdapter(recipientAdapter);
     }
 
@@ -181,12 +159,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(newRecipientIntent);
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setRecipientAdapter();
+    }
+
+
     //PartieGaël
 
-    protected void onResume() {
+    /*protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(sensorEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-    }
+    }*/
 
     protected void onPause() {
         super.onPause();

@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class NewRecipient extends AppCompatActivity{
 
     private EditText prenom, nom, numero;
+    private Button deleteButton;
     private Recipient selectedRecipient;
 
     @Override
@@ -27,6 +31,7 @@ public class NewRecipient extends AppCompatActivity{
         prenom = findViewById(R.id.prenom);
         nom = findViewById(R.id.nom);
         numero = findViewById(R.id.numero);
+        deleteButton = findViewById(R.id.delete);
     }
 
     private void checkForEditRecipient() {
@@ -38,6 +43,9 @@ public class NewRecipient extends AppCompatActivity{
             prenom.setText(selectedRecipient.getPrenom());
             nom.setText(selectedRecipient.getNom());
             numero.setText(selectedRecipient.getNumero());
+        }
+        else{
+            deleteButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -60,8 +68,17 @@ public class NewRecipient extends AppCompatActivity{
             sqLiteManager.updateRecipientInDB(selectedRecipient);
         }
         Intent recipientsListIntent = new Intent(this, MainActivity.class);
-        //startActivity(recipientsListIntent);
-        finish();
+        startActivity(recipientsListIntent);
+        //finish();
+    }
+
+    public void deleteRecipient(View view){
+        selectedRecipient.setDeleted(new Date());
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
+        sqLiteManager.updateRecipientInDB(selectedRecipient);
+        Intent recipientsListIntent = new Intent(this, MainActivity.class);
+        startActivity(recipientsListIntent);
+        //finish();
     }
 }
 /*public class NewRecipient extends AppCompatActivity {

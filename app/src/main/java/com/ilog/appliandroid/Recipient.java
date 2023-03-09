@@ -38,6 +38,16 @@ public class Recipient {
         return null;
     }
 
+    public static ArrayList<Recipient> nonDeleteRecipients(){
+        ArrayList<Recipient> nonDeleted = new ArrayList<>();
+        for(Recipient recipient : recipientArrayList){
+            if(recipient.getDeleted() == null){
+                nonDeleted.add(recipient);
+            }
+        }
+        return nonDeleted;
+    }
+
     public int getId(){
         return id;
     }
