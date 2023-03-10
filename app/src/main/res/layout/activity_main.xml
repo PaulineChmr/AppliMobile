@@ -15,10 +15,21 @@
         android:theme="?actionBarTheme">
 
         <Button
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:backgroundTint="@color/white"
+            android:color="@color/white"
+            android:drawableLeft="@drawable/user"
+            android:onClick="createUser"
+            android:layout_marginEnd="12dp"
+            android:textColor="#235A8C" />
+
+        <Button
             android:id="@+id/reset"
             android:layout_width="145dp"
             android:layout_height="50dp"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:backgroundTint="@color/white"
             android:color="@color/white"
             android:onClick="resetFall"

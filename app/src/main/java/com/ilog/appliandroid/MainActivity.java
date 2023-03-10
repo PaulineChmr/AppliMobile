@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEventListener;
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
     FusedLocationProviderClient mFusedLocationProviderClient;
     private final static int REQUEST_CODE = 100;
 
+    String userFName;
+
+    String userLName;
+
     private SensorEventListener sensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
@@ -95,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
         setRecipientAdapter();
         setOnClickListener();
 
-
+        SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
+        userFName = sharedPreferences.getString("userFName", "");
+        userLName = sharedPreferences.getString("userLName", "");
         //Vérifie qu'on a bien toutes les permissions requises
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
 
@@ -151,13 +158,7 @@ public class MainActivity extends AppCompatActivity {
         mSensorManager.registerListener(sensorEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-
     //PartieGaël
-
-    /*protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(sensorEventListener, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-    }*/
 
     protected void onPause() {
         super.onPause();
@@ -178,15 +179,12 @@ public class MainActivity extends AppCompatActivity {
                                     mAdresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                     mLocation = "Latitude: " + mAdresses.get(0).getLatitude() + " " + mAdresses.get(0).getLongitude()
                                             + "\n  Adress: " + mAdresses.get(0).getAddressLine(0) + " " + mAdresses.get(0).getLocality();
-                                    //en gros ca marche si on ouvre d'abord la view de la liste des numéros qui permet de se synchroniser avec la database.
-                                    //normalement ca va se régler ensuite
                                     ArrayList<Recipient> recipients = Recipient.recipientArrayList;
                                     String s = mLocation;
-                                    //ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
+
                                     for (int i = 0; i < recipients.size(); i ++){
                                         if(recipients.get(i).getDeleted() == null) {
-                                            //ça prend en compte que ceux que je viens de créer là là
-                                            String message = "Ceci est un test, localisation : " + s;
+                                            String message = "ALERTE ! \n" + userFName + " " + userLName + " est tombé(e) à cet endroit : " + s;
                                             String number = recipients.get(i).getNumero();
                                             SmsManager mySmsManager = SmsManager.getDefault();
                                             mySmsManager.sendTextMessage(number, null, message, null, null);
@@ -227,5 +225,10 @@ public class MainActivity extends AppCompatActivity {
     public void resetFall(View view) {
         isFallen = false;
         resetButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void createUser(View view) {
+        Intent newRecipientIntent = new Intent(this, CreateUser.class);
+        startActivity(newRecipientIntent);
     }
 }
