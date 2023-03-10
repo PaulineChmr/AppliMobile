@@ -17,6 +17,10 @@ public class CreateUser extends AppCompatActivity {
     private EditText prenom;
     private EditText nom;
 
+    String userFName;
+
+    String userLName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,11 @@ public class CreateUser extends AppCompatActivity {
                 User user = new User(prenom.toString(), nom.toString());
                 Intent intent = new Intent(CreateUser.this, MainActivity.class);
                 startActivity(intent);
+                /*SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
+                userFName = sharedPreferences.getString("userFName", "");
+                userLName = sharedPreferences.getString("userLName", "");
+                prenom.setText(userFName);
+                nom.setText(userLName);*/
             }
         });
     }

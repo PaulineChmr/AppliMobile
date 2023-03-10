@@ -181,10 +181,13 @@ public class MainActivity extends AppCompatActivity {
                                             + "\n  Adress: " + mAdresses.get(0).getAddressLine(0) + " " + mAdresses.get(0).getLocality();
                                     ArrayList<Recipient> recipients = Recipient.recipientArrayList;
                                     String s = mLocation;
-
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
                                     for (int i = 0; i < recipients.size(); i ++){
                                         if(recipients.get(i).getDeleted() == null) {
-                                            String message = "ALERTE ! \n" + userFName + " " + userLName + " est tombé(e) à cet endroit : " + s;
+                                            //String message = "ALERTE ! " + userFName + " " + userLName + " est tombé(e) à cet endroit : " + s;
+                                            String fullName = userFName.concat(" ".concat(userLName));
+
+                                            String message = "ALERTE ! Je suis tombé(e) \n".concat(fullName.concat("\n".concat(s)));
                                             String number = recipients.get(i).getNumero();
                                             SmsManager mySmsManager = SmsManager.getDefault();
                                             mySmsManager.sendTextMessage(number, null, message, null, null);
