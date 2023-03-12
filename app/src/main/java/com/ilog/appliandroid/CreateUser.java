@@ -23,8 +23,18 @@ public class CreateUser extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
+                userFName = sharedPreferences.getString("userFName", "");
+                userLName = sharedPreferences.getString("userLName", "");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
+
+        final EditText editPrenomView = (EditText) findViewById(R.id.prenom);
+        editPrenomView.setText(userFName);
+
+        final EditText editNomView = (EditText) findViewById(R.id.nom);
+        editNomView.setText(userLName);
 
         prenom = findViewById(R.id.prenom);
         nom = findViewById(R.id.nom);

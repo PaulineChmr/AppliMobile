@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     FusedLocationProviderClient mFusedLocationProviderClient;
     private final static int REQUEST_CODE = 100;
 
+    StringBuffer message = new StringBuffer("ALERTE !\n");
+
     String userFName;
 
     String userLName;
@@ -103,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
         userFName = sharedPreferences.getString("userFName", "");
         userLName = sharedPreferences.getString("userLName", "");
+        message.append(userFName);
+        message.append(" ");
+        message.append(userLName);
+
         //Vérifie qu'on a bien toutes les permissions requises
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
 
@@ -176,21 +182,21 @@ public class MainActivity extends AppCompatActivity {
                                 Geocoder mGeocoder = new Geocoder(MainActivity.this, Locale.getDefault());
                                 List<Address> mAdresses = null;
                                 try {
+                                    message.append(" est tombé(e) à cet endroit :");
                                     mAdresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                     mLocation = "Latitude: " + mAdresses.get(0).getLatitude() + " " + mAdresses.get(0).getLongitude()
-                                            + "\n  Adress: " + mAdresses.get(0).getAddressLine(0) + " " + mAdresses.get(0).getLocality();
+                                            + "\nAdress: " + mAdresses.get(0).getAddressLine(0) + " " + mAdresses.get(0).getLocality();
                                     ArrayList<Recipient> recipients = Recipient.recipientArrayList;
                                     String s = mLocation;
                                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
                                     for (int i = 0; i < recipients.size(); i ++){
                                         if(recipients.get(i).getDeleted() == null) {
-                                            //String message = "ALERTE ! " + userFName + " " + userLName + " est tombé(e) à cet endroit : " + s;
-                                            String fullName = userFName.concat(" ".concat(userLName));
-
-                                            String message = "ALERTE ! Je suis tombé(e) \n".concat(fullName.concat("\n".concat(s)));
+                                            //message.append(s);
+                                            String completeMessage = message.toString();
                                             String number = recipients.get(i).getNumero();
                                             SmsManager mySmsManager = SmsManager.getDefault();
-                                            mySmsManager.sendTextMessage(number, null, message, null, null);
+                                            mySmsManager.sendTextMessage(number, null, completeMessage, null, null);
+                                            mySmsManager.sendTextMessage(number, null, s, null, null);
                                         }
                                     }
                                 } catch (IOException e) {
