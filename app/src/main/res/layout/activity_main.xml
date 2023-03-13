@@ -9,7 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:background="#235A8C"
         android:minHeight="?actionBarSize"
         android:theme="?actionBarTheme">
@@ -18,37 +18,51 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_marginEnd="12dp"
             android:backgroundTint="@color/white"
             android:color="@color/white"
             android:drawableLeft="@drawable/user"
-            android:onClick="createUser"
-            android:layout_marginEnd="12dp"
-            android:textColor="#235A8C" />
-
-        <Button
-            android:id="@+id/reset"
-            android:layout_width="145dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/white"
-            android:color="@color/white"
-            android:onClick="resetFall"
-            android:scaleType="fitXY"
-            android:text="Réinitialiser"
-            android:textColor="#235A8C" />
+            android:onClick="createUser"/>
 
         <Button
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:layout_marginEnd="12dp"
             android:backgroundTint="@color/white"
             android:color="@color/white"
             android:drawableRight="@drawable/addperson"
-            android:onClick="newRecipient"
-            android:layout_marginEnd="12dp"
-            android:textColor="#235A8C" />
+            android:onClick="newRecipient" />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnStartForegroundService"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:text="start"
+            android:paddingRight="20dp"/>
+
+        <Button
+            android:id="@+id/btnStopForegroundService"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:text="stop" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/recipientListView"
